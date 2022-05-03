@@ -1,0 +1,12 @@
+{
+  "title": "Next Level Week Return",
+  "translatedDescription": "Aplicação desenvolvida durante o NLW: Return. Se trata de um site extremamente simples, porém, detalhado e acessível, para enviar um feedback.",
+  "technologies": [
+    "React.js",
+    "JavaScript",
+    "TypesScript",
+    "HTML",
+    "CSS",
+    "Tailwind"
+  ]
+}
