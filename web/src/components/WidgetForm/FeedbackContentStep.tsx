@@ -1,7 +1,9 @@
 import { ArrowLeft } from "phosphor-react";
 import { FormEvent, useState } from "react";
 import { FeedbackType, feedbackTypes } from ".";
+import { api } from "../../service/api";
 import { CloseButton } from "../CloseButton";
+import { Loading } from "../Loading";
 import { ScreenshotButton } from "./ScreenshotButton";
 
 interface FeedbackContentStepProps {
@@ -15,6 +17,7 @@ function FeedbackContentStep({
   onReturn,
   onFeedbackSent
 }: FeedbackContentStepProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState("");
 
@@ -23,14 +26,18 @@ function FeedbackContentStep({
     image
   } = feedbackTypes[type];
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    console.log({
+    setIsLoading(true);
+
+    await api.post("/feedbacks", {
+      type,
       screenshot,
       comment
     });
 
+    setIsLoading(false);
     onFeedbackSent();
   };
 
@@ -124,7 +131,7 @@ function FeedbackContentStep({
           />
           <button
             type="submit"
-            disabled={comment.length === 0}
+            disabled={comment.length === 0 || isLoading}
             className="
               p-2
               bg-brand-500
@@ -146,7 +153,9 @@ function FeedbackContentStep({
               disabled:hover:bg-brand-500
             "
           >
-            Enviar feedback
+            {
+              isLoading? <Loading/>:"Enviar feedback"
+            }
           </button>
         </footer>
       </form>
