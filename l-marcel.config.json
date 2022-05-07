@@ -8,5 +8,8 @@
     "HTML",
     "CSS",
     "Tailwind"
-  ]
+  ],
+  "links": {
+    "self": "https://nlw-return-l-marcel.vercel.app"
+  }
 }
